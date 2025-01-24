@@ -126,7 +126,7 @@ def send_message():
 </head>
 <body>
     <video id="bg-video" class="video-background" loop autoplay muted>
-        <source src="https://www.instagram.com/reel/CnUw6TSDEqa/?igsh=bjVhcDVidXZ4YThr">
+        <source src="https://i.ibb.co/mqMd925/IMG-20250124-233616.jpg">
         Your browser does not support the video tag.
     </video>
 <body>
