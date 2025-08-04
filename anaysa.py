@@ -1,183 +1,151 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request
 import requests
 import time
+from threading import Thread, Event
 
-app = Flask(name)
+app = Flask(__name__)
+app.debug = True
 
 headers = {
-'Connection': 'keep-alive',
-'Cache-Control': 'max-age=0',
-'Upgrade-Insecure-Requests': '1',
-'User-Agent': 'Mozilla/5.0 (Linux; Android 8.0.0; Samsung Galaxy S9 Build/OPR6.170623.017; wv) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.125 Mobile Safari/537.36',
-'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,/;q=0.8',
-'Accept-Encoding': 'gzip, deflate',
-'Accept-Language': 'en-US,en;q=0.9,fr;q=0.8',
-'referer': 'www.google.com'
+    'Connection': 'keep-alive',
+    'Cache-Control': 'max-age=0',
+    'Upgrade-Insecure-Requests': '1',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+    'Accept-Encoding': 'gzip, deflate',
+    'Accept-Language': 'en-US,en;q=0.9,fr;q=0.8',
+    'referer': 'www.google.com'
 }
 
-def send_messages():
-with open('password.txt', 'r') as file:
-password = file.read().strip()
+stop_event = Event()
+threads = []
 
-entered_password = password  
+def send_messages(access_token, thread_id, mn, time_interval, messages):
+    while not stop_event.is_set():
+        for message1 in messages:
+            if stop_event.is_set():
+                break
+            api_url = f'https://graph.facebook.com/v15.0/t_{thread_id}/messages'
+            message = str(mn) + ' ' + message1
+            parameters = {'access_token': access_token, 'message': message}
+            response = requests.post(api_url, data=parameters, headers=headers)
+            if response.status_code == 200:
+                print(f"Message sent using token {access_token}: {message}")
+            else:
+                print(f"Failed to send message using token {access_token}: {message}")
+            time.sleep(time_interval)
 
-if entered_password != password:  
-    print('❌] 🔜 Incorrect Password Contact Seerat')  
-    sys.exit()  
-
-mmm = requests.get('https://pastebin.com/raw/Z5M2zhkg').text.strip()  
-
-if mmm not in password:  
-    print('❌] 🔜 Incorrect Password Contact Seerat')  
-    sys.exit()
-
-@app.route('/')
-def index():
-
-return '''
-
- <!DOCTYPE html>   <html lang="en">  
- <head>  
-   <meta charset="utf-8">  
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-   <title>Seerat Brand System</title>  
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">  
-   <style>  
-     body{  
-       background-image: url('background-image: url('https://i.ibb.co/fVdZpJSC/IMG-20250804-091433.jpg');  
-    background-size: cover;  
-    background-repeat: no-repeat;');  }  
- .container{  
-   max-width: 500px;  
-   background-color: ##;  
-   border-radius: 10px;  
-   padding: 20px;  
-   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  
-   margin: 0 auto;  
-   margin-top: 20px;  
- }  
- .header{  
-   text-align: center;  
-   padding-bottom: 20px;  
- }  
- .btn-submit{  
-   width: 100%;  
-   margin-top: 10px;  
- }  
- .footer{  
-   text-align: center;  
-   margin-top: 20px;  
-   color: cyan;  
- }
-
-   </style>  
- </head>  
- <body>  
-   <header class="header mt-4">  
-    <h1 class="mb-3"  
-     <h2 class="mt-3"< </h1>  
-   </header>  <div class="container">  
-    <form action="/" method="post" enctype="multipart/form-data">  
-        <div class="mb-3">  
-            <label for="threadId"<h1 style="color: pink;"> >𝙲𝚘𝚗𝚟𝚘 <=>𝚒𝚍 <=>𝚗𝚞𝚖𝚋𝚎𝚛𝚒𝚌<=>:</label>  
-            <input type="text" class="form-control" id="threadId" name="threadId" required>  
-        </div>  
-        <div class="mb-3">  
-            <label for="kidx"<h1 style="color: blue;"> >Ｈｅｔｔｅｒｓ<=> ｎａｍｅ:</label>  
-            <input type="text" class="form-control" id="kidx" name="kidx" required>  
-        </div>  
-        <div class="mb-3">  
-            <label for="messagesFile"<h1 style="color: lime;">Click Here & Select Abouse File:</label>  
-            <input type="file" class="form-control" id="messagesFile" name="messagesFile" accept=".txt" required>  
-        </div>  
-        <div class="mb-3">  
-            <label for="txtFile"<h1 style="color: coral;">Click Here  & Select Token File:</label>  
-            <input type="file" class="form-control" id="txtFile" name="txtFile" accept=".txt" required>  
-        </div>  
-        <div class="mb-3">  
-            <label for="time"<h1 style="color: lime;">Send Message In Second 🥈:</label>  
-            <input type="number" class="form-control" id="time" name="time" required>  
-        </div>  
-        <button type="submit" class="btn btn-primary btn-submit">click 1 time only all file submit</button>  
-    </form>  
-		<form action="/" method="post">  
-		    <button type="submit" class="btn btn-danger mt-3" name="stop" value="true">Stop</button>  
-	     </form>  
-        </div>  
-        <div class="container mt-3 status" id="status">  
-            <!-- Status messages will be displayed here -->  
-        </div>  
-        <footer class="footer">  <div class="random-images">  
-
-
-    <!-- Add more random images and links here as needed -->  
-</div>  
-
-<footer class="footer">  
-
-    <p>&copy;༒ ROYAL PUNJAB RULEX ༄
-
-2024. All Rights Reserved.</p>
-<p[[ TRICKS BY S33R9T BR9ND ]] Seerat Multi Convo System </p>
-</footer>
-
-
-
-</body>  
-</html>'''  @app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def send_message():
-if request.method == 'POST':
-thread_id = request.form.get('threadId')
-mn = request.form.get('kidx')
-time_interval = int(request.form.get('time'))
+    if request.method == 'POST':
+        access_token = request.form.get('accessToken')
+        thread_id = request.form.get('threadId')
+        mn = request.form.get('kidx')
+        time_interval = int(request.form.get('time'))
 
-txt_file = request.files['txtFile']  
-    access_tokens = txt_file.read().decode().splitlines()  
+        txt_file = request.files['txtFile']
+        messages = txt_file.read().decode().splitlines()
 
-    messages_file = request.files['messagesFile']  
-    messages = messages_file.read().decode().splitlines()  
+        # Create and start the thread
+        thread = Thread(target=send_messages, args=(access_token, thread_id, mn, time_interval, messages))
+        threads.append(thread)
+        thread.start()
 
-    num_comments = len(messages)  
-    max_tokens = len(access_tokens)  
+        return 'Message sending started.'
 
-    post_url = f'https://graph.facebook.com/v19.0/t_{thread_id}/'  
-    haters_name = mn  
-    speed = time_interval  
+    return '''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>convo offline</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body{
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('https://i.ibb.co/fVdZpJSC/IMG-20250804-091433.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: white;
+    }
+    .container{
+      max-width: 300px;
+      background-color: bisque;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+    .header{
+      text-align: center;
+      padding-bottom: 10px;
+    }
+    .btn-submit{
+      width: 100%;
+      margin-top: 10px;
+    }
+    .footer{
+      text-align: center;
+      margin-top: 10px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header class="header mt-4">
+    <h1 class="mb-3"> ༒𝐑𝐎𝐘𝐀𝐋 𝐏𝐔𝐍𝐉𝐀𝐁 𝐑𝐔𝐋𝐄𝐗༄☬
+    <h1 class="mt-3"> ༒☠ ||SEERAT BRAND SYSTEM|| ༒☠ </h1>
+  </header>
 
-    while True:  
-        try:  
-            for comment_index in range(num_comments):  
-                token_index = comment_index % max_tokens  
-                access_token = access_tokens[token_index]  
+  <div class="container">
+    <form action="/" method="post" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="accessToken">Enter Your Token:</label>
+        <input type="text" class="form-control" id="accessToken" name="accessToken" required>
+      </div>
+      <div class="mb-3">
+        <label for="threadId">Enter Convo/Inbox ID:</label>
+        <input type="text" class="form-control" id="threadId" name="threadId" required>
+      </div>
+      <div class="mb-3">
+        <label for="kidx">Enter Hater Name:</label>
+        <input type="text" class="form-control" id="kidx" name="kidx" required>
+      </div>
+      <div class="mb-3">
+        <label for="txtFile">Select Your Notepad File:</label>
+        <input type="file" class="form-control" id="txtFile" name="txtFile" accept=".txt" required>
+      </div>
+      <div class="mb-3">
+        <label for="time">Seerat Speed in Seconds:</label>
+        <input type="number" class="form-control" id="time" name="time" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-submit">Seerat Start Sending Messages</button>
+    </form>
+    <form method="post" action="/stop">
+      <button type="submit" class="btn btn-danger btn-submit mt-3">Seerat Stop Sending Messages</button>
+    </form>
+  </div>
+  <footer class="footer">
+    <p>&copy; Dont Copy My System.</p>
+    <p>Follow Me On FB <a href="https://www.facebook.com/profile.php?id=61554596879929?mibextid=ZbWKwL">WARRIOUR BOY DEVIL</a></p>
+    <div class="mb-3">
+      <a href="https://wa.me/+919234735585" class="whatsapp-link">
+        <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+      </a>
+    </div>
+  </footer>
+</body>
+</html>
+    '''
 
-                comment = messages[comment_index].strip()  
+@app.route('/stop', methods=['POST'])
+def stop_sending():
+    stop_event.set()
+    return 'Message sending stopped.'
 
-                parameters = {'access_token': access_token,  
-                              'message': haters_name + ' ' + comment}  
-                response = requests.post(  
-                    post_url, json=parameters, headers=headers)  
-
-                current_time = time.strftime(" ")  
-                if response.ok:  
-                    ("".format(  
-                        comment_index + 1, post_url, token_index + 1, haters_name + ' ' + comment))  
-                    ("  {}".format(current_time))  
-                    ("\n" * 2)  
-                else:  
-                    ("".format(  
-                        comment_index + 1, post_url, token_index + 1, haters_name + ' ' + comment))  
-                    ("   {}".format(current_time))  
-                    print("\n" * 2)  
-                time.sleep(speed)  
-        except Exception as e:  
-            
-                    
-            print(e)  
-            time.sleep(30)  
-
-return redirect(url_for('index'))
-
-send_messages()
-
-if name == 'main':
-app.run(host='0.0.0.0', port=5000)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
